@@ -80,7 +80,7 @@ ggplot(aes(x=studytime,fill=Pstatus),data= stu) +
 
 
 table(stu$failures,stu$sex)
-#maximum students have not filed
+#maximum students have not failed
 #converting to factor variable ie- cartegorical value
 stu$failures<-factor(stu$failures,labels=c('Never Failed','Failed once',' failed twice','Failed Thrice'))   
 
@@ -154,5 +154,115 @@ ggplot(aes(x = studytime), data =stu) +
   facet_wrap(~ higher)
 
 
+
+#DATE-11/2/17
+
+#count of students and their home - RURAL or URBAN area
+prop.table(table(stu$address))
+#Most students from Urban area.
+
+table(stu$address,stu$studytime,stu$sex)
+#Again Females studied more than Males even in RURAL and URBAN Areas
+#
+
+ggplot(aes(x = studytime), data =stu) +
+  geom_histogram(aes(fill=sex), binwidth=0.1) + 
+  facet_wrap(higher ~ address)
+#in both rural and Urban areas Females are more studious and hard working
+
+prop.table(table(stu$address,stu$higher))*100
+
+chisq.test(stu$address,stu$higher)
+#X-squared = 0.33171, df = 1, p-value = 0.5647
+#chi-sq values indicate that both address(RURAL AND URBAN) and Student's choice for higher EDU
+# are independent of each other, i .e whether a student is from RURAL area or URBAN , it does
+#not affects its choice foe taking up higher education- H0 is accepted
+
+#In rural areas 6% said No for higher edu and rest 93% students from RURAL areas said YES for
+#Higher EDU out of total population in RURAL area
+#In URABN area 4 % for the Students said NO and rest 95 % Students said YEs for higher EDU 
+# out of total population in URBAN area
+
+
+
+#2)DOES EDUCATION OF PARENTS AFFECT STUDENTS STUDYING HABITS
+
+prop.table(table(stu$Fedu))
+
+prop.table(table(stu$Medu))
+#for maximum students mothers have higher Education i.e 131 students mothers have done higher 
+# educated 
+
+#More mothers went for higher education(4) than Fathers of the students in the sample
+
+
+
+#3)Family Support in Education and their effect on the children and their Study Habits
+
+table(stu$famsup,stu$sex)
+#87 males whose family didnt support them educationally as compared to 66 from FEMALE Students
+
+ggplot(aes(x = studytime),data =stu) + 
+  geom_histogram(aes(fill=sex),binwidth=.1) + 
+  facet_wrap( ~ famsup) + 
+  scale_y_continuous(limits = c(0,150) , breaks = seq(0,150,20)) 
+
+table(stu$famsup,stu$studytime,stu$sex)
+
+#Testing for Independence
+chisq.test(stu$studytime,stu$famsup)
+#X-squared = 10.605, df = 3, p-value = 0.01407
+#A significant p-value less than .05(5%) significance level -which asserts that both studytime
+# and family support are dependent on each other 
+#The intuition is true i.e students with more family support in education  will study more.Those
+# students will be more motivated towards studiying more hours and hard working 
+
+#On a whole Males weekly study time is less than 2 hours and for Females it is more
+
+chisq.test(stu$famsup,stu$activities)
+#X-squared = 0, df = 1, p-value = 1, no diff in Observed and expected freq
+table(stu$activities,stu$famsup)
+#OBSR- students who had no educational support  from family were equally interested in 
+# extra curicullar activities as those whose parents supported them, i.e both are independent
+
+stu$famsup<-ifelse(stu$famsup=='yes','Family Supports Educationally','Does not Supports')
+table(stu$famsup , stu$internet)
+chisq.test(stu$internet,stu$famsup)
+#There are more Students whose family supports them educationally and have provided 
+# Internet access at home for their children
+
+
+
+#4) Family Relations of Students with their Parents
+
+prop.table(table(stu$famrel))
+#50% of the students in the sample had good family realtion , 26% have Excellent family relations
+#2% have worst family relations
+
+table(stu$famrel,stu$famsup)
+
+#family educational support vs family relations
+ggplot(aes(x = famrel), data = stu) + 
+  geom_bar(aes(fill=famsup)) + 
+  xlab('Family Relations(1-worst,5-Excellent)')
+#OBSER-If the students had bad family realtions(1 or 2 ) still  their 
+# family supported them educationally than not supporting them, but as the family relation improves
+# (for EXcellent)->almost equal count for No-support and Educational Support from family.
+
+
+#Family Educational support vs Father jobs
+
+ggplot(aes(x = Fjob),data = stu) + 
+  geom_bar(aes(fill=famsup))
+
+table(stu$famsup,stu$Fjob)
+
+#mother's job vs family educational support
+ggplot(aes(x = Mjob),data = stu) + 
+  geom_bar(aes(fill=famsup))
+
+#Parents on a whole support their children educationally more than not suppporting 
+#irrespective of the job,specially
+#fathers and mothers who are Teachers & in Health sector mostly support children educationally
 
 
