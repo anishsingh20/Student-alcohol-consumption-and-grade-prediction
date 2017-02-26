@@ -265,4 +265,30 @@ ggplot(aes(x = Mjob),data = stu) +
 #irrespective of the job,specially
 #fathers and mothers who are Teachers & in Health sector mostly support children educationally
 
+#Parents in Other Jobs and  Doing Services comparatively focus less on children education
+# and support less educationally
+
+
+by(stu$absences,stu$traveltime,summary)
+
+#converting traveltime to factor
+stu$traveltime<- stu$traveltime  %>%  factor(labels=c("less than 15min","15 to 30 min","30min to 1 hr",">1hr"))
+
+#QUANTILE ANALYSIS
+#boxplot for traveltime(discrete-cagegorical) vs no of absences in school(continious)
+ggplot(aes(x = traveltime, y = absences ) , data = stu) + 
+  geom_boxplot() + 
+  #coord_cartesian to preserve the data points and do not remove them due to limitting 
+  coord_cartesian(ylim=c(0,20)) +
+  #scalling the y coordinates
+  scale_y_continuous(breaks=seq(0,20,4)) + 
+  coord_trans(y = 'sqrt') 
+
+#top 5% of students
+quantile(stu$absences , c(0.90))
+#select() to select particular columns
+#filter to filter or subset results of query accordng to the logical condition like SQL
+stu %>%select(age,sex , Mjob , Fjob , absences) %>% filter(absences >= 14)
+
+
 

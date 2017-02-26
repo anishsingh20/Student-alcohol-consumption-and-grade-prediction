@@ -38,7 +38,7 @@ guardian - student's guardian (nominal: 'mother', 'father' or 'other')
 
 traveltime - home to school travel time (numeric: 1 - <15 min., 2 - 15 to 30 min., 3 - 30 min. to 1 hour, or 4 - >1 hour)
 
-studytime - weekly study time (numeric: 1 - <2 hours, 2 - 2 to 5 hours, 3 - 5 to 10 hours, or 4 - >10 hours)
+studytime - weekly study time (numeric: 1 - <2 hours, 2 - 2 to	 5 hours, 3 - 5 to 10 hours, or 4 - >10 hours)
 
 failures - number of past class failures (numeric: n if 1<=n<3, else 4)
 
