@@ -291,4 +291,46 @@ quantile(stu$absences , c(0.90))
 stu %>%select(age,sex , Mjob , Fjob , absences) %>% filter(absences >= 14)
 
 
+#Classification ALgorithm- Desicion Trees
+install.packages('C50')
+library(C50)
 
+
+#shuflling the data
+set.seed(9850)
+g<-runif(nrow(stu))
+#Random and shuffled student dataset
+stur<-stu[order(g) , ]
+
+#Creating a  Training  Data Set for training the ML algorithm and make it generate a function
+# which maps X(set of input var) to Y-output(target) var
+
+train<-stur[sample(nrow(stur),250),]
+
+#creating 1st model
+
+#target variable(Y) should be a factor(Categorical variable) and a set of 
+#input variables(predictor var)
+m1<- C5.0(as.factor(Walc) ~ 	Dalc +
+          	goout + 
+          	failures + 
+           	Pstatus +
+          	higher +
+          	Mjob+
+          	activities+
+          	studytime+
+          	freetime+
+          	famsize+
+          	internet
+            , data = train)
+m1
+summary(m1)
+
+#model2,lesser predictors and but more errors in the model
+m2<- C5.0(as.factor(Walc) ~ 	Dalc + goout  , data = train)
+
+m2
+summary(m2)
+
+#Plotting the tree for model2-(Only for small decision trees)
+plot(m2)
