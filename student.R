@@ -322,7 +322,18 @@ m1<- C5.0(as.factor(Walc) ~ 	Dalc +
           	freetime+
           	famsize+
           	internet
-            , data = train)
+          , data = train)
+
+#Start splitting the data selecting the best attribute having the 
+# highest Information Gain(G) from the top,then descending down again repeating the
+# same procedure till output is classified.
+
+#information gain is the amount of information one can gain from selecting a attr and.
+#splitting on it.
+#less entropy implies to more info gain
+#Entropy value is the measure of randomness = - sum( P(v) log(p(v)))
+#P(v) is the probability of observing a value v
+
 m1
 summary(m1)
 
@@ -334,3 +345,71 @@ summary(m2)
 
 #Plotting the tree for model2-(Only for small decision trees)
 plot(m2)
+
+
+
+
+
+
+
+
+table(stu$health, stu$Dalc)
+prop.table(table(stu$health , stu$Dalc))
+ggplot(aes(x  = health , y  =  Dalc ) , data = stu) + 
+  geom_count()
+
+
+
+
+chisq.test(stu$Walc, stu$goout)
+#going out and weekly alcohol consumption are strongly related to each other as
+# X-squared = 116.57, df = 16, p-value < 2.2e-16 values are significant and H0 can be rejected
+#and we can interpret that both variables are directly dependent.
+
+#installing rpart for decision trees(for classification)
+install.packages('rpart')
+install.packages('rpart.plot')
+
+
+require(rpart)
+require(rpart.plot)
+
+m1<-rpart(as.factor(Walc) ~ 	Dalc +
+            goout + 
+            failures + 
+            Pstatus +
+            higher +
+            Mjob+
+            activities+
+            studytime+
+            freetime+
+            famsize+
+            internet
+          , data = train, method='class')
+
+m1
+summary(m1)
+
+#loading padkages for attractive decision tree plots
+library(RColorBrewer)
+library(rattle)
+
+
+fancyRpartPlot(m1)
+
+
+
+m2<-rpart(Walc ~ . , data = train , method = 'class')
+m2
+
+summary(m2)
+rpart.plot(m2,type=4)
+
+#predicting values for  
+p1<-predict(m2 , newdata = stur[250:350,] , type='class' )
+p1
+
+#Checking accuracy of the model
+#comparing the target(Y) values of test set and predicted 
+#Y values(calculated by the model)
+table(actual=train[100:200,28] , predicted=p1)
