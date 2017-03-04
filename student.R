@@ -413,3 +413,135 @@ p1
 #comparing the target(Y) values of test set and predicted 
 #Y values(calculated by the model)
 table(actual=train[100:200,28] , predicted=p1)
+
+
+
+
+
+
+
+#Students's Grade in math
+
+table(stu$G1)
+summary(stu$G1)
+
+ggplot(aes(x = G1), data = stu) + 
+  geom_histogram(aes(fill=I('green'),color=I('black')))  + 
+  facet_wrap(~sex)
+
+#splitting by gender of students
+by(stu$G3, stu$sex,summary)
+#somewhat normally distributed(mean and median values same)
+#we observe that Male students have scored slightly better scores in first exams
+# based on the avg scores,median and quantile values (Q3 and Q1)
+
+
+ggplot(aes(x = sex , y = G1), data = stu) + 
+  geom_boxplot() + 
+  scale_y_continuous(breaks=seq(0,20,2))
+
+#Second exams
+ggplot(aes(x = sex , y = G2), data = stu) + 
+  geom_boxplot() + 
+  scale_y_continuous(breaks=seq(0,20,2))
+
+
+#Final exams
+ggplot(aes(x = sex , y = G3), data = stu) + 
+  geom_boxplot() + 
+  scale_y_continuous(breaks=seq(0,20,2))
+
+#test for independence of attributes
+chisq.test(stu$freetime,stu$goout)
+#both are dependent on each other, high X^2 value and low p-value, reject H0
+#the more the free time the more students will go out with friends
+
+
+chisq.test(stu$freetime,stu$studytime)
+#X-squared = 23.53, df = 12, p-value = 0.02355,significant values, reject H0
+#hence we can assert that freetime is related to studytime 
+ggplot(aes(x = freetime, y = studytime), data= stu) + 
+  geom_count()
+
+
+
+chisq.test(stu$freetime,stu$Walc)
+#X-squared = 42.081, df = 16, p-value = 0.0003838,H0 rejected
+#we conclude that freetime and weekly alcohol consumption are dependent on each other
+
+ggplot(aes(x = freetime, y = Walc), data= stu) + 
+  geom_count()
+
+
+
+chisq.test(stu$Dalc,stu$failures)
+#X-squared = 22.614, df = 12, p-value = 0.03119,reject H0
+#Daily alcohol consumption is related to failures
+
+
+require(rpart)
+require(rpart.plot)
+#predicting the student's grade
+
+
+model1<-rpart(G3 ~ . , data = stur[1:150,])
+model1
+summary(model1)
+
+fancyRpartPlot(model1)
+
+summary(residuals(model1))
+#mean diff between actual target and calculated Output(G3) is 0 i.e mean(y(obs)-y(cal))=0
+
+plot(residuals(model1))
+
+plot(predict(model1),residuals(model1))
+
+#predicted values on test set
+p1<-predict(model1,newdata=stur[200:350,])
+
+#binding the output(G3) of test set and the predicted(G3) values 
+accuracy<-cbind(actual=stur[200:350,33],predicted=p1)
+acc1<-as.data.frame(accuracy)
+
+#almost both actual G3 values have same distribution(mean,median)
+#and predicted values also somewhat have same distribution(mean,median etc)
+summary(acc1$predicted)
+summary(acc1$actual)
+#plot of actul Y values and predicted target(Y) values
+ggplot(aes(x=predicted,y=actual ),data = acc1) +
+  geom_point()
+
+#making a new column for residuals(error)
+acc1<-mutate(acc1,residuals = actual - predicted)
+#standerdized residuals-residual values divided by sd of residuals
+acc1<-mutate(acc1,Stdresid = residuals/sd(residuals))
+
+ggplot(aes(x = residuals), data =acc1)  + 
+  geom_histogram(color='black',fill='yellow',binwidth=.5)
+#residuals are somewhat  normally distributed,slightly +vely skewed
+
+summary(acc1$residuals)
+#95 percentile
+quantile(acc1$residuals,c(0.95))
+
+ggplot(aes(x = Stdresid),data =acc1) + 
+  geom_histogram()
+
+summary(acc1$Stdresid)
+
+
+
+
+#2nd Model
+model2<-rpart(G3 ~ goout + absences + studytime + Dalc + Walc + famsup , data = stur[200:350,])
+
+summary(model2)
+
+fancyRpartPlot(model2)
+
+summary(residuals(model2))
+
+
+predict(model2,newdata=data.frame(goout = 5 ,absences = 20 , Walc = 4, Dalc = 4 , famsup = "yes",studytime=3))
+
