@@ -420,7 +420,7 @@ table(actual=train[100:200,28] , predicted=p1)
 
 
 
-#Students's Grade in math
+#PREDICTING Students's Grade in math
 
 table(stu$G1)
 summary(stu$G1)
@@ -542,6 +542,99 @@ fancyRpartPlot(model2)
 
 summary(residuals(model2))
 
+#school absences most important variable
+predict(model2,newdata=data.frame(goout = 1 ,absences = 10 , Walc = 5, Dalc = 4 , famsup = "no",studytime=4))
 
-predict(model2,newdata=data.frame(goout = 5 ,absences = 20 , Walc = 4, Dalc = 4 , famsup = "yes",studytime=3))
+
+
+#USing C50 package for determing student final Grade and checking its accuracy with Rpart
+
+model3<-C5.0(as.factor(Walc) ~. , data = stur[1:150,])
+summary(model3)
+myTree2 <- C50:::as.party.C5.0(model3)
+plot(model3)
+
+#Allows to explicitly visualize the subtrees based on the node number
+
+library(partykit)
+plot(myTree2[10])
+
+
+p2<-predict(model3,newdata = stur[200:350,])
+#returns a vector of predicted Walc consumption
+
+#Creating a df with actual target values and predicted target values to check the accuracy
+acc2<-as.data.frame(cbind(Actual=stur[200:350,25:28], Predicted.Walc = p2))
+
+
+
+#checking the correct predicted values
+filter(acc2, Predicted.Walc==Actual.Walc)
+#62 correct predictions which match the actual values
+filter(acc2, Predicted.Walc!=Actual.Walc)
+#89 wrong predictions made
+
+#checking the frequency distriburtion of predicted and actual Walc values using barplots
+
+ggplot(aes(x = Predicted.Walc),data = acc2) + 
+  geom_bar()
+
+ggplot(aes(x = Actual.Walc),data = acc2) + 
+  geom_bar()
+
+#counting the no of predictions in each class with actual values
+t1<-table(actual=stur[200:350,28],predicted= p2)
+#62 correct predictions which match the actual values
+dim(t1)
+#plotting scatterplot of predicted vs actual values 
+ggplot(aes(x=Actual.Walc, y=Predicted.Walc), data = acc2) + 
+  geom_jitter() + 
+  #smoothening the scatterplot (no need to fit a regression model, only fits data)
+  geom_smooth()
+
+
+
+
+
+
+
+#Predicting Failures of students using Rpart
+
+#regression tree
+model4<-rpart(failures ~ .  ,data = stur[1:250,],method='anova')
+model4
+summary(model4)
+fancyRpartPlot(model4)
+rpart.plot(model4)
+
+
+
+printcp(model4)
+#xerror is the cross validation error
+#xerror lowest for CP = 0.01
+#CP=pruning parameter (aka cost-complexity parameter)
+#prune tree based on CP values with lease Cross validation error
+pruned_model4<-prune(model4,cp=0.0167)
+
+rpart.plot(pruned_model4)
+  summary(pruned_model4)
+
+summary(residuals(pruned_model4))  
+#residuals are somewhat  normally distributed
+hist(resid(pruned_model4))
+
+#Predictions--
+pruned_predict<-predict(pruned_model4 , newdata = stur[251:351,])
+
+acc3<-as.data.frame(cbind(actual=stur[251:351,15], predicted=pruned_predict))
+
+summary(acc3$actual)
+summary(acc3$predicted)
+
+
+
+
+
+
+
 
