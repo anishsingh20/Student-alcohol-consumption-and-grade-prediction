@@ -1,4 +1,4 @@
-# Student-alcohol-consumption-prediction
+# Student-alcohol-consumption-and-grade-prediction
 
 
 ## Aim 
