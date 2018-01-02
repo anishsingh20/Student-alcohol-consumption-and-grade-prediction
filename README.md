@@ -16,6 +16,8 @@ The data were obtained in a survey of students maths course in secondary school.
 ![Decision Tree](https://github.com/anishsingh20/Student-alcohol-consumption-prediction/blob/master/Plots/model2.png)
 
 
+In the above decision tree the leaf nodes are the final grades of the students out of 20.
+
 
 ## Attributes in the dataset
 
