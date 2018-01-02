@@ -1,6 +1,5 @@
 # Exploratory-Data-Analysis-using-R
 
------------------------
 
 ## Aim and Objective
  To find the most important features leading to alcohol consumption in students of secondary school and generating inference rules to predict the likeliness of a student to consume alcohol using a decision tree and to predict the final grade of a student. It simply aims at finding how drinking alcohol at this age affects the student's final grades.
@@ -9,7 +8,7 @@ The objective is to find the factors and most important features which lead to s
 
 The data were obtained in a survey of students maths course in secondary school.It contains a lot of interesting social, gender and study information about students.
 
------------
+
 
 ## Decision tree obtained from one of the model
 
