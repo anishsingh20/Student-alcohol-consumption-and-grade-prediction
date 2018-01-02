@@ -1,13 +1,13 @@
 # Student-alcohol-consumption-prediction
 
 
-## Aim and Objective
- To find the most important features leading to alcohol consumption in students of secondary school and generating inference rules to predict the likeliness of a student to consume alcohol using a decision tree and to predict the final grade of a student. It simply aims at finding how drinking alcohol at this age affects the student's final grades.
+## Aim 
+
+To find the most important features leading to alcohol consumption in students of secondary school and generating inference rules to predict the likeliness of a student to consume alcohol using a decision tree and to predict the final grade of a student. It simply aims at finding how drinking alcohol at this age affects the student's final grades.
+ 
+ ## Objective
  
 The objective is to find the factors and most important features which lead to students indulging in drinking and consuming alcohol and how it affects their final grades in school. After the exploratory data analysis a decision tree is trained and inference rules are generated to predict which student is most likely to consume alcohol and the final grades fo students using the most relevant features extracted after analyzing the dataset.
-
-The data were obtained in a survey of students maths course in secondary school.It contains a lot of interesting social, gender and study information about students.
-
 
 
 ## Decision tree obtained from one of the model
@@ -19,6 +19,8 @@ In the above decision tree the leaf nodes are the final grades of the students o
 
 
 ## Attributes in the dataset
+
+The data were obtained in a survey of students maths course in secondary school.It contains a lot of interesting social, gender and study information about students.
 
 
 Attributes for student-mat.csv (Math course) :
