@@ -11,6 +11,12 @@ The data were obtained in a survey of students maths course in secondary school.
 
 -----------
 
+## Decision tree obtained from one of the model
+
+![Decision Tree](https://github.com/anishsingh20/Student-alcohol-consumption-prediction/blob/master/Plots/model1.png)
+
+
+
 ## Attributes in the dataset
 
 
