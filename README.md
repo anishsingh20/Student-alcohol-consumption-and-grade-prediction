@@ -1,23 +1,29 @@
 # Exploratory-Data-Analysis-using-R
-##Data analysis using R on Student Alcohol Consumption which includes Social, gender and study data from secondary school students.
+
+-----------------------
+
+### Aim and Objectives
+ To find the most important features leading to alcohol consumption in students of secondary school and generating inference rules to predict the likeliness of a student to consume alcohol using a decision tree.
+ 
+A project which aims at finding the factors and most important features which lead to students indulging in drinking and consuming alcohol. After the exploratory data analysis a decision tree is trained and inference rules are generated to predict which student is most likely to consume alcohol using the most relevant features extracted after analyzing the dataset.
+
+The data were obtained in a survey of students maths course in secondary school.It contains a lot of interesting social, gender and study information about students.
+
+-----------
+
+## CONTENTS OF DATA SET--
 
 
-##The data were obtained in a survey of students maths course in secondary school.It contains a lot of interesting social, gender and study information about students. I am using it for some EDA or try to predict students final grade.
 
+Attributes for student-mat.csv (Math course) :
 
-##CONTENTS OF DATA SET--
+school - student's school (binary: 'GP' - Gabriel Pereira or 'MS' - Mousinho da Silveira)
 
+sex - student's sex (binary: 'F' - female or 'M' - male)
 
+age - student's age (numeric: from 15 to 22)
 
-####Attributes for student-mat.csv (Math course) :
-
-####school - student's school (binary: 'GP' - Gabriel Pereira or 'MS' - Mousinho da Silveira)
-
-####sex - student's sex (binary: 'F' - female or 'M' - male)
-
-####age - student's age (numeric: from 15 to 22)
-
-####address - student's home address type (binary: 'U' - urban or 'R' - rural)
+address - student's home address type (binary: 'U' - urban or 'R' - rural)
 
 ####famsize - family size (binary: 'LE3' - less or equal to 3 or 'GT3' - greater than 3)
 
