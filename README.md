@@ -1,4 +1,4 @@
-# Exploratory-Data-Analysis-using-R
+# Student-alcohol-consumption-prediction
 
 
 ## Aim and Objective
