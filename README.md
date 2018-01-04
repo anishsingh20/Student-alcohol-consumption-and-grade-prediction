@@ -7,7 +7,7 @@ To find the most important features leading to alcohol consumption in students o
  
  ## Objective
  
-The objective is to find the factors and most important features which lead to students indulging in drinking and consuming alcohol and how it affects their final grades in school. After the exploratory data analysis a decision tree is trained and inference rules are generated to predict which student is most likely to consume alcohol and the final grades fo students using the most relevant features extracted after analyzing the dataset.
+The objective is to find the factors and most important features which lead to students indulging in drinking and consuming alcohol and how it affects their final grades in school. After the exploratory data analysis a decision tree is trained and inference rules are generated to predict which student is most likely to consume alcohol and the final grades of students using the most relevant features extracted after analyzing the dataset.
 
 
 ## Decision tree obtained from one of the model
