@@ -143,7 +143,7 @@ table(stu$studytime,stu$sex)
 
 table(stu$studytime,stu$higher,stu$sex)
 #OBSV-
-#Students-All students who are studious want to pursue higher education.
+#Students-All students who are studious -> wants to pursue higher education.
 # (usually who study 2-10 hours in a week)
 #Also amongst gender only few males (who didn't study at all)
 #didn't want to go for higher education.,all females wanted to go for
@@ -222,8 +222,8 @@ chisq.test(stu$studytime,stu$famsup)
 chisq.test(stu$famsup,stu$activities)
 #X-squared = 0, df = 1, p-value = 1, no diff in Observed and expected freq
 table(stu$activities,stu$famsup)
-#OBSR- students who had no educational support  from family were equally interested in 
-# extra curicullar activities as those whose parents supported them, i.e both are independent
+#OBSR- students who had educational support from family were all interested in 
+# extra curicullar activities, i.e both variables are completely dependent
 
 stu$famsup<-ifelse(stu$famsup=='yes','Family Supports Educationally','Does not Supports')
 table(stu$famsup , stu$internet)
